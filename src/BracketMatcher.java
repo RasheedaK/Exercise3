@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
@@ -10,21 +11,48 @@ class BracketMatcher {
         this.bracketMapping = brackets;
     }
 
-    boolean areBracketsMatched(List<Character> brackets) {
+    boolean areBracketsMatched(String inputString) {
+        List<Character> brackets=normalizeInput(inputString);
         for (Character bracket:brackets) {
             if(bracketMapping.containsValue(bracket)){
                 stack.push(bracket);
             }
             else {
-                Character poppedBracket =(Character)stack.pop();
-                if(bracketMapping.get(bracket).equals(poppedBracket)) {
-                    return true;
-                }
-                else
-                    return false;
+                return testMatching(bracket);
             }
         }
         return isStackEmpty();
+    }
+
+    private List<Character> normalizeInput(String inputString) {
+        String input=removeNonBraces(inputString);
+        List<Character> brackets=new ArrayList<>();
+        for(int i=0;i<input.length();i++){
+            brackets.add(input.charAt(i));
+        }
+        return brackets;
+    }
+
+    private String removeNonBraces(String inputString) {
+        StringBuffer stringBuffer=new StringBuffer(inputString);
+        for(int i=0;i<stringBuffer.length();i++){
+            if(!bracketMapping.containsValue(inputString.charAt(i)) && !bracketMapping.containsKey(inputString.charAt(i))){
+                stringBuffer.deleteCharAt(i);
+            }
+        }
+      return new String(stringBuffer);
+    }
+
+    private boolean testMatching(Character bracket) {
+        if(!isStackEmpty()) {
+            Character poppedBracket = (Character) stack.pop();
+            if (bracketMapping.get(bracket).equals(poppedBracket)) {
+                return true;
+            } else
+                return false;
+        }
+        else
+            return false;
     }
 
     private boolean isStackEmpty() {

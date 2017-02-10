@@ -11,41 +11,42 @@ public class BracketMatcherTest {
         Map<Character,Character> bracketMapping = getBracketMapping();
         Stack stack = new Stack();
         BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
-        Character bracketOne = '[';
-        Character bracketTwo = ']';
-        List<Character> brackets = new ArrayList<>();
-        brackets.add(bracketOne);
-        brackets.add(bracketTwo);
-        assertTrue(bracketMatcher.areBracketsMatched(brackets));
+        String input="[]";
+        assertTrue(bracketMatcher.areBracketsMatched(input));
     }
     @Test
     public void returnFalseForUnPairedBrackets() {
         Map<Character,Character> bracketMapping = getBracketMapping();
         Stack stack = new Stack();
         BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
-        Character bracketOne = '[';
-        Character bracketTwo = '[';
-        List<Character> brackets = new ArrayList<>();
-        brackets.add(bracketOne);
-        brackets.add(bracketTwo);
-        assertFalse(bracketMatcher.areBracketsMatched(brackets));
+        String input="[[";
+        assertFalse(bracketMatcher.areBracketsMatched(input));
+    }
+    @Test
+    public void returnFalseForUnOrderedBrackets() {
+        Map<Character,Character> bracketMapping = getBracketMapping();
+        Stack stack = new Stack();
+        BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
+        String input="}{";
+        assertFalse(bracketMatcher.areBracketsMatched(input));
     }
 
     @Test
     public void returnTrueForPairedAndNestedBrackets() {
         Map<Character,Character> bracketMapping = getBracketMapping();
-        Character bracketOne = '[';
-        Character bracketTwo = '{';
-        Character bracketThree = '}';
-        Character bracketFour = ']';
-        List<Character> brackets = new ArrayList<>();
-        brackets.add(bracketOne);
-        brackets.add(bracketTwo);
-        brackets.add(bracketThree);
-        brackets.add(bracketFour);
+        String input="}{";
         Stack stack = new Stack();
         BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
-        assertTrue(bracketMatcher.areBracketsMatched(brackets));
+        assertFalse(bracketMatcher.areBracketsMatched(input));
+    }
+
+    @Test
+    public void returnFalseForPairedAndIncorrectlyNestedBrackets() {
+        Map<Character,Character> bracketMapping = getBracketMapping();
+        String input="[({]})";
+        Stack stack = new Stack();
+        BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
+        assertFalse(bracketMatcher.areBracketsMatched(input));
     }
 
     private Map<Character,Character> getBracketMapping() {
