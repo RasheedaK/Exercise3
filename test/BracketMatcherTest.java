@@ -1,31 +1,27 @@
+import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
 public class BracketMatcherTest {
-
     @Test
     public void returnTrueForPairedSquareBrackets() {
-        List<Character> openBrackets = getOpenBrackets();
-        List<Character> closedBrackets = getClosedBrackets();
+        Map<Character,Character> bracketMapping = getBracketMapping();
+        Stack stack = new Stack();
+        BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
         Character bracketOne = '[';
         Character bracketTwo = ']';
         List<Character> brackets = new ArrayList<>();
         brackets.add(bracketOne);
         brackets.add(bracketTwo);
-        Stack stack = new Stack();
-        BracketMatcher bracketMatcher = new BracketMatcher(stack, openBrackets, closedBrackets);
         assertTrue(bracketMatcher.areBracketsMatched(brackets));
     }
 
     @Test
     public void returnTrueForPairedAndNestedSquareBrackets() {
-        List<Character> openBrackets = getOpenBrackets();
-        List<Character> closedBrackets = getClosedBrackets();
+        Map<Character,Character> bracketMapping = getBracketMapping();
         Character bracketOne = '[';
         Character bracketTwo = '{';
         Character bracketThree = '}';
@@ -36,23 +32,15 @@ public class BracketMatcherTest {
         brackets.add(bracketThree);
         brackets.add(bracketFour);
         Stack stack = new Stack();
-        BracketMatcher bracketMatcher = new BracketMatcher(stack, openBrackets, closedBrackets);
+        BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
         assertTrue(bracketMatcher.areBracketsMatched(brackets));
     }
 
-    private List<Character> getOpenBrackets() {
-        List<Character> openBrackets = new ArrayList<>();
-        openBrackets.add('{');
-        openBrackets.add('[');
-        openBrackets.add('(');
-        return openBrackets;
-    }
-
-    private List<Character> getClosedBrackets() {
-        List<Character> closedBrackets = new ArrayList<>();
-        closedBrackets.add('}');
-        closedBrackets.add(']');
-        closedBrackets.add(')');
-        return closedBrackets;
+    private Map<Character,Character> getBracketMapping() {
+        Map<Character,Character> brackets = new HashMap<>();
+        brackets.put('}','{');
+        brackets.put(']','[');
+        brackets.put(')','(');
+        return brackets;
     }
 }
