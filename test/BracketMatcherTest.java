@@ -18,9 +18,21 @@ public class BracketMatcherTest {
         brackets.add(bracketTwo);
         assertTrue(bracketMatcher.areBracketsMatched(brackets));
     }
+    @Test
+    public void returnFalseForUnPairedBrackets() {
+        Map<Character,Character> bracketMapping = getBracketMapping();
+        Stack stack = new Stack();
+        BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
+        Character bracketOne = '[';
+        Character bracketTwo = '[';
+        List<Character> brackets = new ArrayList<>();
+        brackets.add(bracketOne);
+        brackets.add(bracketTwo);
+        assertFalse(bracketMatcher.areBracketsMatched(brackets));
+    }
 
     @Test
-    public void returnTrueForPairedAndNestedSquareBrackets() {
+    public void returnTrueForPairedAndNestedBrackets() {
         Map<Character,Character> bracketMapping = getBracketMapping();
         Character bracketOne = '[';
         Character bracketTwo = '{';
