@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Stack;
 
 class BracketMatcher {
@@ -9,7 +10,7 @@ class BracketMatcher {
         this.stack = stack;
     }
 
-    boolean areBracketsMatched(String inputString) {
-        return true;
+    boolean areBracketsMatched(List<Bracket> brackets) {
+            return true;
     }
 }
