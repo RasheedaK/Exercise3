@@ -24,6 +24,10 @@ class BracketMatcher {
                     return false;
             }
         }
+        return isStackEmpty();
+    }
+
+    private boolean isStackEmpty() {
         if(stack.empty())
             return true;
         else
