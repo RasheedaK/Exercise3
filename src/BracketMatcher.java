@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 
@@ -13,37 +11,17 @@ class BracketMatcher {
     }
 
     boolean areBracketsMatched(String inputString) {
-        List<Character> brackets = normalizeInput(inputString);
-        for (Character bracket : brackets) {
-            if (bracketMapping.containsValue(bracket)) {
-                stack.push(bracket);
-            } else {
-                return testMatching(bracket);
+        for (Character bracket : inputString.toCharArray()) {
+            if (isBracket(bracket)) {
+                if (bracketMapping.containsValue(bracket)) {
+                    stack.push(bracket);
+                } else {
+                    return testMatching(bracket);
+                }
             }
         }
         return isStackEmpty();
     }
-
-    private List<Character> normalizeInput(String inputString) {
-        String input = removeNonBraces(inputString);
-        List<Character> brackets = new ArrayList<>();
-        for (int i = 0; i < input.length(); i++) {
-            brackets.add(input.charAt(i));
-        }
-        return brackets;
-    }
-
-    private String removeNonBraces(String inputString) {
-        System.out.println(inputString);
-        StringBuffer stringBuffer = new StringBuffer();
-        for (int i = 0; i < inputString.length(); i++) {
-            if (bracketMapping.containsValue(inputString.charAt(i)) || bracketMapping.containsKey(inputString.charAt(i))) {
-                stringBuffer.append(inputString.charAt(i));
-            }
-        }
-        return new String(stringBuffer);
-    }
-
     private boolean testMatching(Character bracket) {
         if (!isStackEmpty()) {
             Character poppedBracket = (Character) stack.pop();
@@ -60,5 +38,9 @@ class BracketMatcher {
             return true;
         else
             return false;
+    }
+
+    private boolean isBracket(Character bracket) {
+        return bracketMapping.containsKey(bracket) || bracketMapping.containsValue(bracket);
     }
 }
