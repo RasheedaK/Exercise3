@@ -25,6 +25,15 @@ public class BracketMatcherTest {
     }
 
     @Test
+    public void returnFalseForUnopenedClosingBracket() {
+        Map<Character, Character> bracketMapping = getBracketMapping();
+        Stack stack = new Stack();
+        String input = "{[)][]}";
+        BracketMatcher bracketMatcher = new BracketMatcher(stack,bracketMapping);
+        assertFalse(bracketMatcher.areBracketsMatched(input));
+    }
+
+    @Test
     public void returnFalseForUnOrderedBrackets() {
         Map<Character, Character> bracketMapping = getBracketMapping();
         Stack stack = new Stack();
