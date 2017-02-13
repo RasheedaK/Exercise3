@@ -22,9 +22,10 @@ class BracketMatcher {
         }
         return isStackEmpty();
     }
+
     private boolean testMatching(Character bracket) {
         if (!isStackEmpty()) {
-            Character poppedBracket = (Character) stack.pop();
+            Character poppedBracket = (Character)stack.pop();
             if (bracketMapping.get(bracket).equals(poppedBracket)) {
                 return true;
             } else

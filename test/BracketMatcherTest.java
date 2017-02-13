@@ -32,9 +32,17 @@ public class BracketMatcherTest {
         String input = "}{";
         assertFalse(bracketMatcher.areBracketsMatched(input));
     }
+    @Test
+    public void returnTrueForSimpleNestedBrackets() {
+        Map<Character, Character> bracketMapping = getBracketMapping();
+        Stack stack = new Stack();
+        BracketMatcher bracketMatcher = new BracketMatcher(stack, bracketMapping);
+        String input = "{[]}";
+        assertTrue(bracketMatcher.areBracketsMatched(input));
+    }
 
     @Test
-    public void returnTrueForPairedAndNestedBrackets() {
+    public void returnTrueForPairedAndUnOrderedBrackets() {
         Map<Character, Character> bracketMapping = getBracketMapping();
         String input = "}{";
         Stack stack = new Stack();
