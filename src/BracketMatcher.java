@@ -35,10 +35,7 @@ class BracketMatcher {
     }
 
     private boolean isStackEmpty() {
-        if (stack.empty())
-            return true;
-        else
-            return false;
+        return stack.empty();
     }
 
     private boolean isBracket(Character bracket) {
